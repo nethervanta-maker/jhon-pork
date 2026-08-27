@@ -37,7 +37,6 @@
             height: 100%;
             cursor: none;
             touch-action: none;
-            display: none; /* Hidden by default */
         }        img {
             position: absolute;
             top: 50%;
@@ -51,21 +50,28 @@
              bottom: 20px;
              width: 100%;
              text-align: center;
-             color:
+             color: white;
              font-family: Arial, sans-serif;
              font-size: 24px;
              text-shadow: 2px 2px 4px black;
         } </style>
 </head>
-<body id="mainPayload"> <img src="https://th.bing.com/th/id/OIP.hGqGfvoqvtAkSImoB1ajEwHaNl?w=132&h=18&c=7&r=0&o=7&pid=1.7&rm=3" alt="John Pork"> <div id="message">Hi, I'm John Pork!</div>    <audio id="audio" loop>
-        <source src="Jhonprok.mp3" type="audio/mpeg">    </audio>
+<body id="mainPayload">
+
+    <img src="https://th.bing.com/th/id/OIP.hGqGfvoqvtAkSImoB1ajEwHaNl?w=132&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="John Pork">
+
+    <div id="message">Hi, I'm John Pork!</div>
+
+    <audio id="audio" loop>
+        <source src="Jhonprok.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="clickScreen" onclick="startPayload()">
+        <h1>Click to Enter</h1>
+        <p>Tap anywhere to continue</p>
+    </div>
+
 </body>
-
-<!-- Click-to-Enter Screen (Visible by Default) -->
-<div id="clickScreen" onclick="startPayload()"> <h1>Click to Enter</h1>
-    <p>Tap anywhere to continue</p>
-</div>
-
 <script>
     function startPayload() { // Hide click screen
         document.getElementById('clickScreen').style.display = 'none';
